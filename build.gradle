@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'jacoco'  // Add the JaCoCo plugin
+}
+
+repositories {
+    mavenCentral()
+}
+
+jacoco {
+    toolVersion = "0.8.7"  // Specify the JaCoCo version
+}
+dependencies {
+    // JUnit 5 dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport  // Generate a report after tests
+}
+
+jacocoTestReport {
+    dependsOn test  // Ensure tests are run before generating the report
+
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = file("${buildDir}/jacocoHtml")  // Generates HTML report
+    }
+}
+
