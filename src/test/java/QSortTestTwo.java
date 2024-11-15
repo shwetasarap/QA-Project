@@ -1,13 +1,13 @@
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class QSortTestTwo{
 
     QuickSort sorter = new QuickSort();
 
     @Test
-    void testPositiveNumbers() {
+    public void testPositiveNumbers() {
         int[] actualArray = {10, 7, 8, 9, 1, 5};
         sorter.sort(actualArray, 0, actualArray.length - 1);
         int[] expectedArray = {1, 5, 7, 8, 9, 10};
@@ -15,7 +15,7 @@ public class QSortTestTwo{
     }
 
     @Test
-    void testAlreadySortedArray() {
+    public void testAlreadySortedArray() {
         int[] actualArray = {1, 2, 3, 4, 5};
         sorter.sort(actualArray, 0, actualArray.length - 1);
         int[] expectedArray = {1, 2, 3, 4, 5};
