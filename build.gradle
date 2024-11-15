@@ -1,33 +1,43 @@
 plugins {
     id 'java'
-    id 'jacoco'  // Add the JaCoCo plugin
+    //id 'jacoco'  // Add the JaCoCo plugin
+  //  id 'io.cucumber' version '6.10.4'  // Cucumber plugin
 }
 
 repositories {
     mavenCentral()
 }
 
-jacoco {
-    toolVersion = "0.8.7"  // Specify the JaCoCo version
-}
+
+
 dependencies {
-    // JUnit 5 dependencies
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    // JUnit 4 (if you are using @RunWith with Cucumber)
+    testImplementation 'junit:junit:4.13.2'
+
+    // Cucumber JUnit 4 integration
+    testImplementation 'io.cucumber:cucumber-java:7.12.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.12.0'
+    // Selenium dependency
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.5.0' // You can update the version as needed
+    implementation 'org.seleniumhq.selenium:selenium-java:4.5.0' // Adjust the version as necessary
+
 }
 
 test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport  // Generate a report after tests
+    useJUnit()
+    include 'runner/TestFlipkartRunner.class'
+    maxParallelForks = 4
+    systemProperty "junit.jupiter.execution.parallel.enabled", "true"
+    systemProperty "junit.jupiter.execution.parallel.mode.default", "concurrent"
+    systemProperty "junit.jupiter.execution.parallel.mode.classes.default", "concurrent"
+
 }
-
-jacocoTestReport {
-    dependsOn test  // Ensure tests are run before generating the report
-
-    reports {
-        xml.required = false
-        csv.required = false
-        html.outputLocation = file("${buildDir}/jacocoHtml")  // Generates HTML report
+test {
+    testLogging {
+        events "passed", "skipped", "failed" // Log events for better visibility
     }
-}
+    reports {
+        html.destination = file("D:/ULSI TA/demo2/Reports/custom-test-reports")
+    }
 
+}

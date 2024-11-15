@@ -4,9 +4,9 @@ public class QuickSort {
         int[] arr = {10, 7, 8, 9, 1, 5};
         int n = arr.length;
         QuickSort ob = new QuickSort();
+
         ob.sort(arr, 0, n - 1);
         System.out.println("Sorted array:");
-
         printArray(arr);
     }
 
@@ -37,6 +37,7 @@ public class QuickSort {
 
         return i + 1;
     }
+
 
     static void printArray(int[] arr) {
         int n = arr.length;
